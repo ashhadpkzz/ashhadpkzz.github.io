@@ -1,169 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ashhad | Portfolio</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    html {
-      scroll-behavior: smooth;
-    }
+<title>Ashhad | Developer Portfolio</title>
 
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #0f0f0f;
-      color: white;
-      overflow-x: hidden;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
 
-    canvas#bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 0;
-      width: 100vw;
-      height: 100vh;
-    }
+html{
+  scroll-behavior:smooth;
+}
 
-    header {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      padding: 2rem;
-    }
+body{
+  background:#0f0f0f;
+  color:white;
+  overflow-x:hidden;
+}
 
-    header h1 {
-      font-size: 3rem;
-      color: white;
-    }
+/* Background Canvas */
+#bg{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
 
-    header h2 {
-      font-size: 1.5rem;
-      color: #00ff88;
-    }
+/* Navbar */
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  z-index:10;
+}
 
-    .btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: 2px solid #00ff88;
-      border-radius: 30px;
-      color: #00ff88;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+nav h3{
+  color:#00ff88;
+}
 
-    .btn:hover {
-      background: #00ff88;
-      color: black;
-    }
+nav a{
+  color:white;
+  margin-left:20px;
+  text-decoration:none;
+  transition:.3s;
+}
 
-    section {
-      padding: 4rem 2rem;
-      background: #181818;
-      z-index: 1;
-      position: relative;
-    }
+nav a:hover{
+  color:#00ff88;
+}
 
-    section h2 {
-      color: #00ff88;
-      margin-bottom: 1rem;
-    }
+/* Hero Section */
+header{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  z-index:1;
+  position:relative;
+}
 
-    section p {
-      max-width: 600px;
-      margin: auto;
-      font-size: 1.1rem;
-      color: #ccc;
-      line-height: 1.6;
-    }
-  </style>
+header h1{
+  font-size:3rem;
+}
+
+header span{
+  color:#00ff88;
+}
+
+header p{
+  margin-top:10px;
+  color:#ccc;
+}
+
+.btn{
+  margin-top:25px;
+  padding:12px 25px;
+  border:2px solid #00ff88;
+  border-radius:30px;
+  color:#00ff88;
+  text-decoration:none;
+  transition:.3s;
+}
+
+.btn:hover{
+  background:#00ff88;
+  color:black;
+}
+
+/* Sections */
+section{
+  padding:80px 20px;
+  background:#181818;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+
+section h2{
+  color:#00ff88;
+  margin-bottom:20px;
+}
+
+section p{
+  max-width:700px;
+  margin:auto;
+  color:#ccc;
+  line-height:1.7;
+}
+
+/* Skills */
+.skills{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  margin-top:20px;
+}
+
+.skill{
+  border:1px solid #00ff88;
+  padding:10px 20px;
+  border-radius:20px;
+}
+
+/* Projects */
+.project{
+  background:#111;
+  margin:15px auto;
+  padding:20px;
+  max-width:500px;
+  border-radius:10px;
+  transition:.3s;
+}
+
+.project:hover{
+  transform:translateY(-5px);
+  border:1px solid #00ff88;
+}
+
+/* Footer */
+footer{
+  padding:20px;
+  text-align:center;
+  background:#0f0f0f;
+  color:#777;
+}
+</style>
 </head>
+
 <body>
 
 <canvas id="bg"></canvas>
 
+<!-- NAVBAR -->
+<nav>
+  <h3>Ashhad</h3>
+  <div>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+  </div>
+</nav>
+
+<!-- HERO -->
 <header>
-  <h1>Hi! My name is</h1>
-  <h1>Ashhad</h1>
-  <h2>I am a developer.</h2>
-  <a href="#about" class="btn">About Me</a>
+  <h1>Hi, I'm <span>Ashhad</span></h1>
+  <p>Creative Developer | Student | Tech Enthusiast</p>
+  <a href="#about" class="btn">Explore</a>
 </header>
 
+<!-- ABOUT -->
 <section id="about">
-  <h2>01. INTRO</h2>
+  <h2>01. About Me</h2>
   <p>
-    I'm Ashhad, a creative web developer passionate about design, code, and innovation. 
-    I love creating visually appealing, dynamic websites that feel alive and interactive.
+    I'm Ashhad, a passionate developer who enjoys building modern,
+    interactive websites and exploring new technologies. I focus on
+    clean design, smooth animations, and user-friendly experiences.
   </p>
 </section>
 
+<!-- SKILLS -->
+<section id="skills">
+  <h2>02. Skills</h2>
+  <div class="skills">
+    <div class="skill">HTML</div>
+    <div class="skill">CSS</div>
+    <div class="skill">JavaScript</div>
+    <div class="skill">Python</div>
+    <div class="skill">UI Design</div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2>03. Projects</h2>
+
+  <div class="project">
+    <h3>Portfolio Website</h3>
+    <p>Animated personal portfolio with particle background.</p>
+  </div>
+
+  <div class="project">
+    <h3>Student Project</h3>
+    <p>Cyber Physical System related academic project.</p>
+  </div>
+
+</section>
+
+<footer>
+  © 2026 Ashhad | Portfolio
+</footer>
+
 <script>
-  const canvas = document.getElementById("bg");
-  const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
 
-  function resizeCanvas() {
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-  }
+function resize(){
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
 
-  resizeCanvas();
-  window.addEventListener("resize", resizeCanvas);
+const particles=[];
+for(let i=0;i<60;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2+1,
+    dx:Math.random()*2-1,
+    dy:Math.random()*2-1
+  });
+}
 
-  const particles = [];
-  for (let i = 0; i < 60; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 2 + 1,
-      dx: Math.random() * 2 - 1,
-      dy: Math.random() * 2 - 1
-    });
-  }
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  function drawParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((p, i) => {
-      p.x += p.dx;
-      p.y += p.dy;
+  particles.forEach((p,i)=>{
+    p.x+=p.dx;
+    p.y+=p.dy;
 
-      if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-      if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+    if(p.x<0||p.x>canvas.width)p.dx*=-1;
+    if(p.y<0||p.y>canvas.height)p.dy*=-1;
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(0, 255, 136, 0.7)";
-      ctx.fill();
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle="rgba(0,255,136,0.7)";
+    ctx.fill();
 
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = p.x - particles[j].x;
-        const dy = p.y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 100) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = "rgba(0, 255, 136, 0.1)";
-          ctx.stroke();
-        }
+    for(let j=i+1;j<particles.length;j++){
+      let dx=p.x-particles[j].x;
+      let dy=p.y-particles[j].y;
+      let dist=Math.sqrt(dx*dx+dy*dy);
+
+      if(dist<100){
+        ctx.beginPath();
+        ctx.moveTo(p.x,p.y);
+        ctx.lineTo(particles[j].x,particles[j].y);
+        ctx.strokeStyle="rgba(0,255,136,0.1)";
+        ctx.stroke();
       }
-    });
+    }
+  });
 
-    requestAnimationFrame(drawParticles);
-  }
-
-  drawParticles();
+  requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
