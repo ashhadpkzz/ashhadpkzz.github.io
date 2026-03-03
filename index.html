@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ashhad | Developer Portfolio</title>
+
+<!-- EMAILJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<style>
+
+/* ================= ROOT COLORS ================= */
+:root{
+  --bg:#0f0f0f;
+  --text:#ffffff;
+  --accent:#00ff88;
+  --glass:rgba(255,255,255,0.08);
+}
+
+.light{
+  --bg:#f4f4f4;
+  --text:#111;
+  --glass:rgba(255,255,255,0.6);
+}
+
+/* ================= GLOBAL ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  transition:.4s;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+/* ================= NAVBAR ================= */
+nav{
+  position:fixed;
+  width:100%;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  backdrop-filter:blur(15px);
+  background:rgba(0,0,0,.4);
+  z-index:1000;
+}
+
+nav a{
+  margin-left:15px;
+  text-decoration:none;
+  color:var(--text);
+}
+
+.toggle{
+  border:1px solid var(--accent);
+  padding:5px 12px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+/* ================= HERO ================= */
+header{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+header h1{
+  font-size:3rem;
+}
+
+header span{
+  color:var(--accent);
+}
+
+/* ================= SECTIONS ================= */
+section{
+  padding:80px 20px;
+  text-align:center;
+}
+
+/* ================= GLASS EFFECT ================= */
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+  border-radius:15px;
+  padding:25px;
+  margin:20px auto;
+  max-width:700px;
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+/* ================= SKILLS ================= */
+.skills{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px;
+}
+
+.skill{
+  border:1px solid var(--accent);
+  padding:8px 16px;
+  border-radius:20px;
+}
+
+/* ================= PROJECT ================= */
+.project{
+  margin-top:15px;
+}
+
+.project a{
+  color:var(--accent);
+  text-decoration:none;
+}
+
+/* ================= CONTACT ================= */
+input,textarea{
+  width:90%;
+  padding:12px;
+  margin:8px;
+  border-radius:8px;
+  border:none;
+}
+
+button{
+  padding:10px 20px;
+  border:none;
+  background:var(--accent);
+  border-radius:20px;
+  cursor:pointer;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  header h1{
+    font-size:2rem;
+  }
+}
+
+footer{
+  padding:20px;
+  text-align:center;
+  opacity:.6;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <h3>Ashhad</h3>
+  <div>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    <span class="toggle" onclick="toggleMode()">🌙</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header>
+  <h1>Hello, I'm <span>Ashhad</span></h1>
+  <p>Creative Developer • Cyber Physical Systems Student</p>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="glass">
+    <h2>About Me</h2>
+    <p>
+      I'm Ashhad, a passionate developer who enjoys building modern,
+      interactive and visually engaging websites. I love combining
+      creativity with technology.
+    </p>
+  </div>
+
+  <div class="skills">
+    <div class="skill">HTML</div>
+    <div class="skill">CSS</div>
+    <div class="skill">JavaScript</div>
+    <div class="skill">Python</div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2>GitHub Projects</h2>
+  <div id="repoContainer"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="glass">
+    <h2>Contact Me</h2>
+
+    <form id="contactForm">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="message" placeholder="Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+
+    <p id="msg"></p>
+  </div>
+</section>
+
+<footer>
+  © 2026 Ashhad | Portfolio
+</footer>
+
+<script>
+
+/* ================= DARK / LIGHT MODE ================= */
+function toggleMode(){
+  document.body.classList.toggle("light");
+}
+
+/* ================= EMAILJS ================= */
+/* Replace with your real keys from emailjs.com */
+emailjs.init("YOUR_PUBLIC_KEY");
+
+document.getElementById("contactForm")
+.addEventListener("submit",function(e){
+  e.preventDefault();
+
+  emailjs.sendForm(
+    "YOUR_SERVICE_ID",
+    "YOUR_TEMPLATE_ID",
+    this
+  ).then(()=>{
+    document.getElementById("msg").innerText =
+      "Message sent successfully ✅";
+    this.reset();
+  });
+});
+
+/* ================= GITHUB PROJECT AUTO LOAD ================= */
+
+fetch("https://api.github.com/users/ashhadpkzz/repos")
+.then(res=>res.json())
+.then(data=>{
+
+  const container=document.getElementById("repoContainer");
+
+  data.sort((a,b)=>
+    new Date(b.updated_at)-new Date(a.updated_at)
+  );
+
+  data.slice(0,6).forEach(repo=>{
+    container.innerHTML+=`
+      <div class="glass project">
+        <h3>${repo.name}</h3>
+        <p>${repo.description || "No description provided."}</p>
+        <a href="${repo.html_url}" target="_blank">
+          View Project →
+        </a>
+      </div>`;
+  });
+
+});
+
+</script>
+
+</body>
+</html>
