@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ashhad | Ultimate Portfolio</title>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<style>
+
+/* ================= THEME ================= */
+:root{
+  --bg:#0a0a0a;
+  --text:#fff;
+  --accent:#00ff88;
+  --glass:rgba(255,255,255,0.08);
+}
+
+.light{
+  --bg:#f4f4f4;
+  --text:#111;
+  --glass:rgba(255,255,255,0.6);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  transition:.4s;
+}
+
+/* animated gradient background */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:linear-gradient(120deg,#001,#020,#001);
+  animation:bgMove 12s infinite alternate;
+  z-index:-2;
+}
+@keyframes bgMove{
+  from{filter:hue-rotate(0deg);}
+  to{filter:hue-rotate(60deg);}
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  width:100%;
+  padding:15px 30px;
+  backdrop-filter:blur(15px);
+  display:flex;
+  justify-content:space-between;
+  background:rgba(0,0,0,.3);
+  z-index:1000;
+}
+
+nav a{
+  margin-left:15px;
+  text-decoration:none;
+  color:var(--text);
+}
+
+/* HERO */
+header{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+header h1 span{color:var(--accent);}
+
+/* GLASS CARD */
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(25px);
+  border-radius:18px;
+  padding:25px;
+  margin:20px auto;
+  max-width:750px;
+  border:1px solid rgba(255,255,255,.1);
+  transition:.3s;
+}
+
+.glass:hover{
+  transform:translateY(-5px);
+}
+
+/* BUTTON */
+.btn{
+  padding:10px 20px;
+  border:1px solid var(--accent);
+  border-radius:30px;
+  cursor:pointer;
+  display:inline-block;
+  margin-top:15px;
+}
+
+/* SECTIONS */
+section{
+  padding:90px 20px;
+  text-align:center;
+}
+
+/* SKILLS */
+.skills{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px;
+}
+.skill{
+  border:1px solid var(--accent);
+  padding:8px 14px;
+  border-radius:20px;
+}
+
+/* REVEAL */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* CURSOR */
+.cursor{
+  position:fixed;
+  width:18px;height:18px;
+  background:var(--accent);
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(7px);
+  z-index:9999;
+}
+
+/* AI CHAT */
+#aiBox{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:260px;
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+  border-radius:15px;
+  padding:15px;
+  font-size:14px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+header h1{font-size:2rem;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="cursor"></div>
+
+<!-- NAV -->
+<nav>
+<h3>Ashhad</h3>
+<div>
+<a href="#about">About</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+<span class="btn" onclick="toggleMode()">Theme</span>
+</div>
+</nav>
+
+<!-- HERO -->
+<header>
+<h1>Hi, I'm <span>Ashhad</span></h1>
+<h2 id="typing"></h2>
+<a class="btn" href="resume.pdf" download>Download Resume</a>
+</header>
+
+<!-- ABOUT -->
+<section class="reveal" id="about">
+<div class="glass">
+<h2>About Me</h2>
+<p>
+Cyber Physical Systems student building modern,
+interactive web experiences and creative digital products.
+</p>
+</div>
+
+<div class="skills">
+<div class="skill">HTML</div>
+<div class="skill">CSS</div>
+<div class="skill">JavaScript</div>
+<div class="skill">Python</div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section class="reveal" id="projects">
+<h2>GitHub Projects</h2>
+<div id="repoContainer"></div>
+</section>
+
+<!-- CONTACT -->
+<section class="reveal" id="contact">
+<div class="glass">
+<h2>Contact</h2>
+<form id="contactForm">
+<input name="name" placeholder="Name" required>
+<input name="email" placeholder="Email" required>
+<textarea name="message" placeholder="Message"></textarea>
+<button class="btn">Send</button>
+</form>
+<p id="msg"></p>
+</div>
+</section>
+
+<!-- AI MINI ASSISTANT -->
+<div id="aiBox">
+<b>AI Assistant 🤖</b>
+<p id="aiText">Ask about Ashhad...</p>
+<input id="aiInput" placeholder="Type..." style="width:100%">
+</div>
+
+<script>
+
+/* DARK MODE SAVE */
+if(localStorage.theme==="light")
+document.body.classList.add("light");
+
+function toggleMode(){
+document.body.classList.toggle("light");
+localStorage.theme=
+document.body.classList.contains("light")?"light":"dark";
+}
+
+/* TYPING */
+const t="Web Developer | Creative Thinker | Tech Explorer";
+let i=0;
+(function type(){
+if(i<t.length){
+typing.innerHTML+=t[i++];
+setTimeout(type,50);
+}
+})();
+
+/* SCROLL REVEAL */
+addEventListener("scroll",()=>{
+document.querySelectorAll(".reveal").forEach(el=>{
+if(el.getBoundingClientRect().top<window.innerHeight-100)
+el.classList.add("active");
+});
+});
+
+/* CURSOR */
+document.addEventListener("mousemove",e=>{
+document.querySelector(".cursor").style.transform=
+`translate(${e.clientX}px,${e.clientY}px)`;
+});
+
+/* EMAILJS */
+emailjs.init("YOUR_PUBLIC_KEY");
+
+contactForm.onsubmit=e=>{
+e.preventDefault();
+emailjs.sendForm("YOUR_SERVICE","YOUR_TEMPLATE",contactForm)
+.then(()=>msg.innerText="Sent ✅");
+};
+
+/* GITHUB PROJECTS */
+fetch("https://api.github.com/users/ashhadpkzz/repos")
+.then(r=>r.json())
+.then(d=>{
+d.slice(0,6).forEach(repo=>{
+repoContainer.innerHTML+=`
+<div class="glass">
+<h3>${repo.name}</h3>
+<p>${repo.description||"No description"}</p>
+<a href="${repo.html_url}" target="_blank">View →</a>
+</div>`;
+});
+});
+
+/* SIMPLE AI ASSISTANT */
+aiInput.addEventListener("keypress",e=>{
+if(e.key==="Enter"){
+let q=e.target.value.toLowerCase();
+if(q.includes("skills"))
+aiText.innerText="Ashhad works with HTML, CSS, JS and Python.";
+else if(q.includes("contact"))
+aiText.innerText="Use the contact form above!";
+else
+aiText.innerText="Thanks for visiting Ashhad's portfolio 🚀";
+e.target.value="";
+}
+});
+
+</script>
+
+</body>
+</html>
