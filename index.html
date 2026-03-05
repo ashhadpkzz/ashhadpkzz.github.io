@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shifa | Elite Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+transition:0.4s;
+}
+
+.light{
+background:#f4f4f4;
+color:#111;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 10%;
+position:sticky;
+top:0;
+backdrop-filter:blur(10px);
+}
+
+nav h2{
+font-weight:700;
+letter-spacing:2px;
+}
+
+nav button{
+padding:8px 15px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+}
+
+.hero{
+height:90vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero h1{
+font-size:3rem;
+margin-bottom:10px;
+}
+
+.hero span{
+color:#00e0ff;
+}
+
+.hero p{
+opacity:0.8;
+max-width:600px;
+}
+
+.glass{
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(15px);
+border-radius:15px;
+padding:30px;
+margin:30px auto;
+width:85%;
+max-width:900px;
+}
+
+.section-title{
+font-size:1.8rem;
+margin-bottom:20px;
+}
+
+.projects{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+padding:20px;
+border-radius:15px;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.skills span{
+display:inline-block;
+padding:8px 15px;
+margin:5px;
+background:rgba(255,255,255,0.15);
+border-radius:20px;
+}
+
+form{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+input,textarea{
+padding:12px;
+border:none;
+border-radius:8px;
+}
+
+button.submit{
+background:#00e0ff;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+footer{
+text-align:center;
+padding:30px;
+opacity:0.7;
+}
+
+@media(max-width:700px){
+
+.hero h1{
+font-size:2rem;
+}
+
+nav{
+padding:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<h2>Shifa</h2>
+<button onclick="toggleMode()">🌙</button>
+</nav>
+
+<section class="hero">
+<h1>Hi, I'm <span>Shifa</span></h1>
+<p>Creative developer building modern web experiences with futuristic UI design.</p>
+</section>
+
+<div class="glass">
+<h2 class="section-title">Skills</h2>
+
+<div class="skills">
+<span>HTML</span>
+<span>CSS</span>
+<span>JavaScript</span>
+<span>Python</span>
+<span>Git</span>
+<span>UI Design</span>
+</div>
+</div>
+
+<div class="glass">
+<h2 class="section-title">GitHub Projects</h2>
+<div class="projects" id="projects"></div>
+</div>
+
+<div class="glass">
+<h2 class="section-title">Contact</h2>
+
+<form id="contact-form">
+
+<input type="text" name="name" placeholder="Your name" required>
+<input type="email" name="email" placeholder="Your email" required>
+<textarea name="message" rows="5" placeholder="Your message"></textarea>
+
+<button class="submit">Send Message</button>
+
+</form>
+</div>
+
+<footer>
+© 2026 Shifa Portfolio
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+
+function toggleMode(){
+document.body.classList.toggle("light");
+}
+
+fetch("https://api.github.com/users/ashhadpkzz/repos")
+.then(res=>res.json())
+.then(data=>{
+
+let container=document.getElementById("projects");
+
+data.slice(0,6).forEach(repo=>{
+
+let card=document.createElement("div");
+card.className="card";
+
+card.innerHTML=`
+<h3>${repo.name}</h3>
+<p>${repo.description || "No description"}</p>
+<a href="${repo.html_url}" target="_blank">View Project</a>
+`;
+
+container.appendChild(card);
+
+});
+
+});
+
+(function(){
+
+emailjs.init("YOUR_PUBLIC_KEY");
+
+})();
+
+document.getElementById("contact-form")
+.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+emailjs.sendForm("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",this)
+.then(()=>{
+
+alert("Message sent successfully 🚀");
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
